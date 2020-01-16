@@ -1,6 +1,7 @@
 package net.cnam.inf330;
 
 import java.util.LinkedList;
+import java.util.Observer;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -8,15 +9,17 @@ import java.util.Queue;
  * Class for implementing the simulation system.
  */
 // TODO 6.a) Make AirportSimulator an Observer object
-public class AirportSimulator {
+public /*abstract*/ class AirportSimulator /*implements Observer*/ {
 
     private final int NUM_RUNWAYS = 3;
 
     private int tick;
     private int planeCount;
     // TODO 1.a) Declare a PriorityQueue to store the flying planes waiting to land
+    private PriorityQueue <Plane> flyingPlanes = new PriorityQueue<Plane>();
     //private ... flyingPlanes;
     // TODO 1.b) Declare a Queue (LinkedList) to store the landed planes waiting to take off
+    private Queue <Plane> landedPlanes = new LinkedList();
     //private ... landedPlanes;
 
     public AirportSimulator() {
@@ -32,7 +35,7 @@ public class AirportSimulator {
      * @param numNewTakingOff       The number of new planes on the ground waiting to take off
      * @param fuelCapacitiesLanding The starting fuel capacity of each plane in the air waiting to land
      */
-    public void simulateTurnWithNewPlanes(int numNewLanding, int numNewTakingOff, int[] fuelCapacitiesLanding) {
+    public void simulateTurnWithNewPlanes(int numNewLanding, int numNewTakingOff, int[] fuelCapacitiesLanding) throws Exception {
         System.out.println();
         System.out.println("=====================================================================");
         System.out.println("Turn " + this.tick + " : creating new planes");
@@ -121,9 +124,12 @@ public class AirportSimulator {
      * @param flying
      */
     // TODO 4. Throw an InvalidFuelCapacityException when fuelCapacity is negative
-    private void createPlane(int fuelCapacity, boolean flying) {
+    private void createPlane(int fuelCapacity, boolean flying) throws Exception{
+        if(fuelCapacity<0){
+            throw new Exception("InvalidFuelCapacityException");
+        }
         String name = "Plane" + planeCount++;
-        Plane plane = new Plane(this.tick, name, flying, fuelCapacity);
+        Plane plane = new NormalPlane(this.tick, name, flying, fuelCapacity);
         System.out.println("Created plane : " + name + " (" + fuelCapacity + ", " +
                 (flying ? "air" : "ground") + ")");
         if (flying)

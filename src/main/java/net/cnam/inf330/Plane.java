@@ -1,18 +1,20 @@
 package net.cnam.inf330;
 
+import javafx.beans.Observable;
+
 /**
  * Class for implementing the planes operated by the simulation system.
  */
 // TODO 3.a) Make Plane an abstract class that implements the IPlane interface
 // TODO 6.a) Make Plane an Observable object
-public class Plane {
+abstract class Plane implements IPlane, Observable {
 
     public static final int MAX_FUEL_CAPACITY = 5;
 
     private int creationTick;
     private String name;
     private boolean isFlying;
-    private int fuelCapacity;
+    public int fuelCapacity;
 
     public Plane(int tick, String name, boolean isFlying, int fuelCapacity) {
         this.creationTick = tick;
@@ -21,9 +23,7 @@ public class Plane {
         this.fuelCapacity = fuelCapacity;
     }
 
-    public void fly() {
-        this.fuelCapacity--;
-    }
+    public void fly() {this.fuelCapacity--; }
 
     public void takeOff(int runway) {
         this.isFlying = true;
