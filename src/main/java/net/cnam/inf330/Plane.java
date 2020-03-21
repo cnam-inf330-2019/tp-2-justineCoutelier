@@ -7,6 +7,7 @@ import javafx.beans.Observable;
  */
 // TODO 3.a) Make Plane an abstract class that implements the IPlane interface
 // TODO 6.a) Make Plane an Observable object
+// FIXME Wrong Observable interface
 abstract class Plane implements IPlane, Observable {
 
     public static final int MAX_FUEL_CAPACITY = 5;
@@ -21,6 +22,7 @@ abstract class Plane implements IPlane, Observable {
         this.name = name;
         this.isFlying = isFlying;
         this.fuelCapacity = fuelCapacity;
+        // FIXME Add Observer
     }
 
     public void fly() {this.fuelCapacity--; }
@@ -28,6 +30,7 @@ abstract class Plane implements IPlane, Observable {
     public void takeOff(int runway) {
         this.isFlying = true;
         System.out.println("Plane taking off from runway " + runway + " : " + this.name);
+        // FIXME update observer
     }
 
     public void land(int runway) {
@@ -36,11 +39,13 @@ abstract class Plane implements IPlane, Observable {
             System.out.println("Plane landing (emergency) on runway " + runway + " : " + this.name);
         else
             System.out.println("Plane landing on runway " + runway + " : " + this.name);
+        // FIXME update observer
     }
 
     public void crash() {
         this.isFlying = false;
         System.out.println("Plane crashing : " + this.name);
+        // FIXME update observer
     }
 
     public String getName() {

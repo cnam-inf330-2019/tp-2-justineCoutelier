@@ -15,7 +15,9 @@ public /*abstract*/ class AirportSimulator /*implements Observer*/ {
 
     private int tick;
     private int planeCount;
+    // FIXME Initialize variables in the constructor
     // TODO 1.a) Declare a PriorityQueue to store the flying planes waiting to land
+    // FIXME Pass PlaneFuelComparator to PriorityQueue
     private PriorityQueue <Plane> flyingPlanes = new PriorityQueue<Plane>();
     //private ... flyingPlanes;
     // TODO 1.b) Declare a Queue (LinkedList) to store the landed planes waiting to take off
